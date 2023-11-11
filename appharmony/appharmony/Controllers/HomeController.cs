@@ -15,6 +15,7 @@ namespace appharmony.Controllers
 
         public IActionResult Index()
         {
+            // Añadí lo siguiente al proyecto
             return View();
         }
 
@@ -22,7 +23,7 @@ namespace appharmony.Controllers
         {
             return View();
         }
-
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
