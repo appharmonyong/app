@@ -6,6 +6,7 @@ namespace Harmony.Bussiness.Services
 {
     public static class DependencyInjection
     {
+        //Esto a futuro sera un comentario y no un texto qeu da error
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddTransient<IUserServices, UserServices>();
