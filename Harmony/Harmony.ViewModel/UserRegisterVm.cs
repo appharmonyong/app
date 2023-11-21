@@ -9,5 +9,8 @@ namespace Harmony.Bussiness.ViewModel
         public string Email { get; set; } = string.Empty!;
         public string Password { get; set; } = string.Empty!;
         public EUserTypes userType { get; set; }
+        public string? Phone { get; set; }
+
+        public DateTime? BirthDay { get; set; }
     }
 }
