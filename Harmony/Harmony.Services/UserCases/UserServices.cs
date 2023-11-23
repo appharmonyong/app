@@ -59,8 +59,6 @@ namespace Harmony.Bussiness.Services.UserCases
         {
             var dbObject = _mapper.Map<UserEntity>(userVm);
 
-            //CheckUser(userVm);
-
             dbObject.Salt = Algorithm.GenerateSalt();
             dbObject.Hash = Algorithm.HashPassword(dbObject.Salt, userVm.Password);
             dbObject.UserName = dbObject.Email!.Split("@")[0];
@@ -80,14 +78,38 @@ namespace Harmony.Bussiness.Services.UserCases
 
         }
 
+        public Task<UserVm> Unregister()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<UserVm> Create(UserVm entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<UserVm> Update(int id, UserVm entity)
+
+        public async Task<UserVm> Update(int id, UserRegisterVm entity)
         {
-            throw new NotImplementedException();
+
+            // Buscar el usuario por ID
+            var userToUpdate = _context.User.Find(id);
+
+            if (userToUpdate is null)
+            {
+                throw new ArgumentNullException("Usuario no existente");
+            }
+            // Actualizar propiedades del usuario
+            userToUpdate.FirstName = entity.FirstName;
+            userToUpdate.LastName = entity.LastName;
+            userToUpdate.Phone = entity.Phone;
+            userToUpdate.BirthDay = entity.BirthDay;
+
+            _context.User.Update(userToUpdate);
+            await _context.SaveChangesAsync();
+
+            return await GetById(id);
+
         }
 
         public async Task<bool> Delete(int id)
@@ -118,7 +140,6 @@ namespace Harmony.Bussiness.Services.UserCases
             var userVms = _mapper.Map<IEnumerable<UserVm>>(result);
 
             return userVms;
-        }
     }
 }
 
