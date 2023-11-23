@@ -13,7 +13,6 @@ namespace Harmony.Persistence.Domain
         public string Hash { get; set; } = string.Empty!;
         public byte[] Salt { get; set; }
         public DateTime? BirthDay { get; set; }
-        public bool IsActive { get; set; }
 
 
         // TODO: Crear objeto para las direcciones, para que pueda tener mas de una. 

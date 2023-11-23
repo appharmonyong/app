@@ -2,6 +2,7 @@
 using Harmony.Bussiness.Services.Contracts;
 using Harmony.Bussiness.ViewModel;
 using Harmony.Common;
+using Harmony.Common.Extensions;
 using Harmony.Persistence.Context;
 using Harmony.Persistence.Domain;
 using Microsoft.AspNetCore.Authentication;
@@ -28,19 +29,26 @@ namespace Harmony.Bussiness.Services.UserCases
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Method for create user
+        /// </summary>
+        /// <param name="user">User vm for register</param>
+        /// <returns>UserVm object</returns>
         public async Task<UserVm> SignIn(UserLogInVm user)
         {
-            var dbObject = _context.User.FirstOrDefault(x =>
+            var dbUser = _context.User.FirstOrDefault(x =>
             x.Email!.Trim() == user.Email.Trim() || x.UserName!.Trim() == user.Email.Trim());
 
-            if (dbObject != null)
+            if (dbUser != null)
             {
-                string hash = Algorithm.HashPassword(dbObject.Salt, user.Password);
-                if (dbObject.Hash == hash)
-                    return await GetById(dbObject.Id)!;
+                if (!dbUser.IsActive || dbUser.IsDelete) throw new ArgumentNullException(EMensajesSistema.USUARIO_DESHABILITADO_ELIMINADO.GetDescription());
+
+                string hash = Algorithm.HashPassword(dbUser.Salt, user.Password);
+                if (dbUser.Hash == hash)
+                    return await GetById(dbUser.Id)!;
             }
 
-            throw new ArgumentNullException("Usuario no existente");
+            throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription());
         }
 
         public async Task<IEnumerable<UserVm>> Get()
@@ -52,10 +60,10 @@ namespace Harmony.Bussiness.Services.UserCases
         {
             var user = await _context.User.FindAsync(id);
 
-            return user is null ? throw new ArgumentNullException("Usuario no existente") : _mapper.Map<UserEntity, UserVm>(user);
+            return user is null ? throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription()) : _mapper.Map<UserEntity, UserVm>(user);
         }
 
-        public async Task<UserVm> Register(UserRegisterVm userVm)
+        public async Task<UserVm> Create(UserRegisterVm userVm)
         {
             var dbObject = _mapper.Map<UserEntity>(userVm);
 
@@ -69,27 +77,24 @@ namespace Harmony.Bussiness.Services.UserCases
                 await _context.User.AddAsync(dbObject);
                 await _context.SaveChangesAsync();
             }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException!.Message.Contains("Violation of PRIMARY KEY constraint"))
+                    throw new ArgumentNullException(EMensajesSistema.USUARIO_EXISTENTE.GetDescription());
+                else
+                {
+                    throw new ArgumentNullException(ex.Message);
+                }
+            }
             catch (Exception ex)
             {
-                throw ex;
+                throw new ArgumentNullException(ex.Message);
             }
-
             return await GetById(dbObject.Id)!;
 
         }
 
-        public Task<UserVm> Unregister()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<UserVm> Create(UserVm entity)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public async Task<UserVm> Update(int id, UserRegisterVm entity)
+        public async Task<UserVm> Update(int id, UserUpdateVm entity)
         {
 
             // Buscar el usuario por ID
@@ -97,18 +102,14 @@ namespace Harmony.Bussiness.Services.UserCases
 
             if (userToUpdate is null)
             {
-                throw new ArgumentNullException("Usuario no existente");
+                throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription());
             }
-            // Actualizar propiedades del usuario
-            userToUpdate.FirstName = entity.FirstName;
-            userToUpdate.LastName = entity.LastName;
-            userToUpdate.Phone = entity.Phone;
-            userToUpdate.BirthDay = entity.BirthDay;
 
+            userToUpdate.UpdateChangedProperties(entity);
             _context.User.Update(userToUpdate);
             await _context.SaveChangesAsync();
 
-            return await GetById(id);
+            return await GetById(id)!;
 
         }
 
@@ -116,49 +117,22 @@ namespace Harmony.Bussiness.Services.UserCases
         {
             try
             {
-                var userToBeDeleted = _context.User.Find(id);
-                if (userToBeDeleted != null)
-                {
-                    UserEntity entity = _mapper.Map<UserEntity>(userToBeDeleted);
-                    entity.IsActive = false;
-                    return true;
-                }
-                return false;
-            } catch (Exception ex)
-            {
-                return false;
+                var userToBeDeleted = _context.User.Find(id) ?? throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription());
+                userToBeDeleted.IsActive = false;
+                _context.User.Update(userToBeDeleted);
+                return await _context.SaveChangesAsync() > 0;
             }
-
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
 
         }
 
-        //Este metodo se  utilizara dentro de la vista para asegurar que los usuarios mostrados sean los que realmente existen
         public async Task<IEnumerable<UserVm>> GetCertainProperties()
         {
-            bool isActiveFalse = true;
-            var result= await _context.User.Where(us=> isActiveFalse ? us.IsActive: true).ToListAsync();
-            var userVms = _mapper.Map<IEnumerable<UserVm>>(result);
+            return _mapper.Map<IEnumerable<UserVm>>(await _context.User.Where(us => us.IsActive && !us.IsDelete).ToListAsync());
+        }
 
-            return userVms;
     }
 }
-
-
-//TODO: Mas o menos lo que se usara para el LogIn
-// https://www.youtube.com/watch?v=uGoNCJf0t1g&ab_channel=CodeStudentNet
-
-//var claims = new List<Claim>
-//            {
-//                new Claim(ClaimTypes.NameIdentifier, userVm.Email!),
-//                new Claim(ClaimTypes.Sid,  userVm.Id.ToString()),
-//            };
-
-//ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-//AuthenticationProperties properties = new AuthenticationProperties()
-//{
-//    AllowRefresh = true,
-//    IsPersistent = true,
-//};
-
-//await HttpContext.SigInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), properties);
