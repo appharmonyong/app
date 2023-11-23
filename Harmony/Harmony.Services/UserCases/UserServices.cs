@@ -78,7 +78,49 @@ namespace Harmony.Bussiness.Services.UserCases
 
         }
 
+        public Task<UserVm> Unregister()
+        {
+            throw new NotImplementedException();
+        }
 
+        public Task<UserVm> Create(UserVm entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<UserVm> Update(int id, UserRegisterVm entity)
+        {
+
+            // Buscar el usuario por ID
+            var userToUpdate = _context.User.Find(id);
+
+            if (userToUpdate is null)
+            {
+                throw new ArgumentNullException("Usuario no existente");
+            }
+            // Actualizar propiedades del usuario
+            userToUpdate.FirstName = entity.FirstName;
+            userToUpdate.LastName = entity.LastName;
+            userToUpdate.Phone = entity.Phone;
+            userToUpdate.BirthDay = entity.BirthDay;
+
+            _context.User.Update(userToUpdate);
+            await _context.SaveChangesAsync();
+
+            return await GetById(id);
+
+        }
+
+
+        public Task<bool> Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UserVm> Update(int id, UserVm entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
