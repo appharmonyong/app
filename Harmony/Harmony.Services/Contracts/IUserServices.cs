@@ -7,6 +7,8 @@ namespace Harmony.Bussiness.Services.Contracts
     {
         Task<UserVm> SignIn(UserLogInVm user);
         Task<UserVm> Register(UserRegisterVm user);
+
         Task<UserVm> Unregister();
+
     }
 }

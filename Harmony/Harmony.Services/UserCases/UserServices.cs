@@ -88,6 +88,7 @@ namespace Harmony.Bussiness.Services.UserCases
             throw new NotImplementedException();
         }
 
+
         public async Task<UserVm> Update(int id, UserRegisterVm entity)
         {
 
@@ -111,16 +112,34 @@ namespace Harmony.Bussiness.Services.UserCases
 
         }
 
-
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userToBeDeleted = _context.User.Find(id);
+                if (userToBeDeleted != null)
+                {
+                    UserEntity entity = _mapper.Map<UserEntity>(userToBeDeleted);
+                    entity.IsActive = false;
+                    return true;
+                }
+                return false;
+            } catch (Exception ex)
+            {
+                return false;
+            }
+
+
         }
 
-        public Task<UserVm> Update(int id, UserVm entity)
+        //Este metodo se  utilizara dentro de la vista para asegurar que los usuarios mostrados sean los que realmente existen
+        public async Task<IEnumerable<UserVm>> GetCertainProperties()
         {
-            throw new NotImplementedException();
-        }
+            bool isActiveFalse = true;
+            var result= await _context.User.Where(us=> isActiveFalse ? us.IsActive: true).ToListAsync();
+            var userVms = _mapper.Map<IEnumerable<UserVm>>(result);
+
+            return userVms;
     }
 }
 
