@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Harmony.Bussiness.ViewModel.UserVm>
+
+<div>
+    @foreach (var user in @Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@user.UserName</h5>
+                <p class="card-text">@user.FirstName, @user.LastName</p>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    Eliminar
+                </button>
+                @Html.Partial("_DeleteConfirmationModal");
+                <!--<a asp-controller="User" asp-action="TestDelete" asp-route-id="@user.Id" class="btn btn-danger">Eliminar</a> -->
+            </div>
+        </div>
+    }
+
+
+</div>
