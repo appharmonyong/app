@@ -59,8 +59,6 @@ namespace Harmony.Bussiness.Services.UserCases
         {
             var dbObject = _mapper.Map<UserEntity>(userVm);
 
-            //CheckUser(userVm);
-
             dbObject.Salt = Algorithm.GenerateSalt();
             dbObject.Hash = Algorithm.HashPassword(dbObject.Salt, userVm.Password);
             dbObject.UserName = dbObject.Email!.Split("@")[0];
