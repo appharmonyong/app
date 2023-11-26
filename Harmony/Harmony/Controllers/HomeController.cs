@@ -1,5 +1,6 @@
 ﻿using Harmony.Bussiness.Services.Contracts;
 using Harmony.Bussiness.ViewModel;
+using Harmony.Presentation.Main.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -22,7 +23,22 @@ namespace Harmony.Presentation.Main.Controllers
         {
             var users = await _authServices.Get();
 
-            return View(users);
+            //Insertar las fotos que irán en el carousel aquí
+            var carouselItems = new List<CarouselItem>
+            {
+                new CarouselItem {ImageUrl = "https://vibes.okdiario.com/wp-content/uploads/2023/07/pension-seguridad-social-amas.jpg", CaptionTitle = "Emplead@s", CaptionBody = "Nuestros empleados verificados", HasButtons = true},
+                new CarouselItem {ImageUrl = "https://whaticket.com/wp-content/uploads/2022/06/clientes-satisfechos-1-1024x577.png", CaptionTitle = "Servicios", CaptionBody = "Ofrecemos los mejores servicios", HasButtons = false},
+                new CarouselItem {ImageUrl = "~/images/harmony1.jpg", CaptionTitle = "Harmony", CaptionBody = "Cuenta con nosotros", HasButtons = false}
+            };
+
+            //Carga los datos para mandarlo a vista
+            var viewModel = new IndexViewModel
+            {
+                Users = (List<UserVm>)users,
+                CarouselItems = carouselItems
+            };
+
+            return View(viewModel);
         }
 
         [Authorize]
