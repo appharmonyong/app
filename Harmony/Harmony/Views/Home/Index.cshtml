@@ -1,33 +1,55 @@
-﻿@model IEnumerable<Harmony.Bussiness.ViewModel.UserVm>
-@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Harmony.Presentation.Main.Models.IndexViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">UserName</th>
-            <th scope="col">Email</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<!--Estilo de las fotos del carousel-->
+<style>
+    .carousel-item img {
+        width: 100%; 
+        height: auto; 
+        object-fit: cover; 
+    }
+</style>
+
+ <!-- Carousel -->
+<div id="demo1" class="container carousel slide" data-bs-ride="carousel">
+
+    <!-- Indicators/dots -->
+    <div class="carousel-indicators">
+        @for (var i = 0; i < Model.CarouselItems.Count; i++)
         {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.FirstName</td>
-                <td>@item.LastName</td>
-                <td>@item.UserName</td>
-                <td>@item.Email</td>
-            </tr>
+            <button type="button" data-bs-target="#demo1" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>
         }
-    </tbody>
-</table>
+    </div>
+
+    <!-- The slideshow/carousel -->
+    <div class="carousel-inner">
+        @foreach (var item in Model.CarouselItems)
+        {
+            <div class="carousel-item @(item == Model.CarouselItems.First() ? "active" : "")">
+                <img src="@item.ImageUrl" alt="@item.CaptionTitle" class="d-block w-100">
+                @if (!string.IsNullOrEmpty(item.CaptionBody))
+                {
+                        <div class="carousel-caption">
+                            <h4>@item.CaptionTitle</h4>
+                            <p>@item.CaptionBody</p>
+                            @if (item.HasButtons)
+                            {
+                    
+                                <button type="button" class="btn btn-primary">Ver Más...</button>
+                            }
+                        </div>
+                }
+                </div>
+        }
+        
+    </div>
+
+    <!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo1" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo1" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div> 
+
