@@ -19,7 +19,7 @@ namespace Harmony.Bussiness.Services.UserCases
 {
     public class UserServices : IUserServices
     {
-
+   
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
@@ -37,11 +37,12 @@ namespace Harmony.Bussiness.Services.UserCases
         public async Task<UserVm> SignIn(UserLogInVm user)
         {
             var dbUser = _context.User.FirstOrDefault(x =>
-            x.Email!.Trim() == user.Email.Trim() || x.UserName!.Trim() == user.Email.Trim());
+         x.Email!.Trim() == user.Email.Trim() || x.UserName!.Trim() == user.Email.Trim());
 
             if (dbUser != null)
             {
-                if (!dbUser.IsActive || dbUser.IsDelete) throw new ArgumentNullException(EMensajesSistema.USUARIO_DESHABILITADO_ELIMINADO.GetDescription());
+                if (!dbUser.IsActive || dbUser.IsDelete)
+                    throw new ArgumentNullException(EMensajesSistema.USUARIO_DESHABILITADO_ELIMINADO.GetDescription());
 
                 string hash = Algorithm.HashPassword(dbUser.Salt, user.Password);
                 if (dbUser.Hash == hash)
@@ -51,7 +52,51 @@ namespace Harmony.Bussiness.Services.UserCases
             throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription());
         }
 
-        public async Task<IEnumerable<UserVm>> Get()
+        public async Task<UserVm> Register(UserRegisterVm userVm)
+        {
+            // Verificar si ya existe un usuario con el mismo correo electrónico o nombre de usuario
+            if (_context.User.Any(x => x.Email == userVm.Email || x.UserName == userVm.FirstName))
+            {
+                throw new ArgumentException(EMensajesSistema.USUARIO_EXISTENTE.GetDescription());
+            }
+
+            // Mapear el modelo de vista a la entidad de usuario
+            var newUser = _mapper.Map<UserEntity>(userVm);
+
+            // Generar salt y hash para la contraseña
+            newUser.Salt = Algorithm.GenerateSalt();
+            newUser.Hash = Algorithm.HashPassword(newUser.Salt, userVm.Password);
+
+            // Configurar el nombre de usuario (podrías ajustar esto según tus necesidades)
+            newUser.UserName = userVm.Email.Split("@")[0];
+
+            // Agregar el nuevo usuario al contexto y guardar en la base de datos
+            try
+            {
+                await _context.User.AddAsync(newUser);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException?.Message.Contains("Violation of PRIMARY KEY constraint") == true)
+                {
+                    throw new ArgumentException(EMensajesSistema.USUARIO_EXISTENTE.GetDescription());
+                }
+                else
+                {
+                    throw new ArgumentException(ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+
+            // Devolver el nuevo usuario creado
+            return await GetById(newUser.Id) ?? throw new ArgumentException("Error al recuperar el usuario recién creado.");
+        }
+
+    public async Task<IEnumerable<UserVm>> Get()
         {
             return _mapper.Map<List<UserEntity>, List<UserVm>>(await _context.User.ToListAsync());
         }
