@@ -6,11 +6,16 @@ namespace Harmony.Bussiness.Services.Contracts
     public interface IUserServices : IReadable<UserVm>
     {
         Task<UserVm> SignIn(UserLogInVm user);
+        Task<IEnumerable<UserVm>> Get();
+        Task<UserVm>? GetById(int id);
         Task<IEnumerable<UserVm>> GetCertainProperties(); //Me permite asegurar que las entidades que no esten activas no se muestren
         
         Task<UserVm> Create(UserRegisterVm entity);
         Task<UserVm> Update(int id, UserUpdateVm entity);
         Task<bool> Delete(int id);
+
+        // Nuevo método para el registro de usuarios
+        Task<UserVm> Register(UserRegisterVm userVm);
 
     }
 }
