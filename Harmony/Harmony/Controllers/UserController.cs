@@ -16,7 +16,7 @@ namespace Harmony.Presentation.Main.Controllers
         }
         
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var allUsers= await _userServices.GetCertainProperties();
             return View(allUsers);
