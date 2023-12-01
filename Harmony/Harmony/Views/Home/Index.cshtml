@@ -1,13 +1,33 @@
 ﻿@model Harmony.Presentation.Main.Models.IndexViewModel
 
 
-<!--Estilo de las fotos del carousel-->
+<!--Estilo de las fotos del carousel y el navbar-->
 <style>
+
+    .carousel-item img {
+        width: 400px; 
+        height: 900px; 
+
     .my-img-carousel {
         width: 500px; 
         height: 900px; 
          
+
     }
+
+    .my-navbar {
+        background-color: #ede5f3;
+    }
+
+    .my-links .nav-link {
+        color: #6fa0cc;
+        float: right;
+        font-family: "Times New Roman", Times, serif;
+        font-size: 18px;
+    }
+
+    .my-img-logo {
+        width: 50px;
 </style>
 
  <!-- Carousel -->
@@ -50,9 +70,42 @@
     <button class="carousel-control-next" type="button" data-bs-target="#demo1" data-bs-slide="next">
         <span class="carousel-control-next-icon"></span>
     </button>
-</div> 
-
-<div style="background-color: #1A1D39; padding: 20px; margin-top: 40px; width: 100%;">
-  <h1 style="color: white; font-weight 600; text-align: center;">Empleados</h1>
-  @await Html.PartialAsync("~/Views/Shared/Components/EmpeladoCard.cshtml")
 </div>
+
+    <!--Menú de navegación o Navbar-->
+    <nav class="navbar navbar-expand-sm fixed-top my-navbar">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <img src="https://i.ibb.co/WvbGTh7/harmony-logo-negro.png" alt="Harmony Logo" class="rounded-pill my-img-logo" />
+            </a>
+            <ul class="navbar-nav ms-auto my-links">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Acerca de</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#perfilEmpleado">Equipo de trabajo</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "Home")#footerAncla">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--Aquí se acaba el navbar-->
+
+<div style="background-color: #1A1D39; padding: 20px; margin-top: 40px; width: 100%;" id="perfilEmpleado">
+    <h1 style="color: white; font-weight 600; text-align: center;">Empleados</h1>
+    @await Html.PartialAsync("~/Views/Shared/Components/EmpeladoCard.cshtml")
+
+</div>
+
+
+
+

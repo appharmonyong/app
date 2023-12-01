@@ -29,6 +29,7 @@ namespace Harmony.Presentation.Main.Controllers
             var carouselItems = new List<CarouselItem>
             {
                 new CarouselItem {ImageUrl = "https://vibes.okdiario.com/wp-content/uploads/2023/07/pension-seguridad-social-amas.jpg", CaptionTitle = "Emplead@s", CaptionBody = "Nuestros empleados verificados", HasButtons = true},
+
                 new CarouselItem {ImageUrl = "https://i.ibb.co/tBKNfzT/harmony1.jpg", CaptionTitle = "Servicios", CaptionBody = "Ofrecemos los mejores servicios", HasButtons = false},
                 new CarouselItem {ImageUrl = "https://i.ibb.co/D4qC3vQ/harmony1.jpg", CaptionTitle = "Harmony", CaptionBody = "Cuenta con nosotros", HasButtons = false}
             };
