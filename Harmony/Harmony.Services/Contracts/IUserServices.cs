@@ -14,6 +14,8 @@ namespace Harmony.Bussiness.Services.Contracts
         Task<UserVm> Update(int id, UserUpdateVm entity);
         Task<bool> Delete(int id);
 
+        Task<bool> GetEType(int id); //A traves de este metodo se buscaran los tipos dentro del Enum para las distintas operaciones de eliminar entre cuentas
+
         // Nuevo método para el registro de usuarios
         Task<UserVm> Register(UserRegisterVm userVm);
 
