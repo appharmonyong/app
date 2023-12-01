@@ -3,9 +3,16 @@
 
 <!--Estilo de las fotos del carousel y el navbar-->
 <style>
+
     .carousel-item img {
         width: 400px; 
         height: 900px; 
+
+    .my-img-carousel {
+        width: 500px; 
+        height: 900px; 
+         
+
     }
 
     .my-navbar {
@@ -39,7 +46,7 @@
         @foreach (var item in Model.CarouselItems)
         {
             <div class="carousel-item @(item == Model.CarouselItems.First() ? "active" : "")">
-                <img src="@item.ImageUrl" alt="@item.CaptionTitle" class="d-block w-100">
+                <img src="@item.ImageUrl" alt="@item.CaptionTitle" class="d-block w-100 my-img-carousel">
                 @if (!string.IsNullOrEmpty(item.CaptionBody))
                 {
                         <div class="carousel-caption">
@@ -47,8 +54,7 @@
                             <p>@item.CaptionBody</p>
                             @if (item.HasButtons)
                             {
-                    
-                                <button type="button" class="btn btn-primary">Ver Más...</button>
+                                    <button type="button" class="btn btn-primary">Ver Más...</button>   
                             }
                         </div>
                 }
@@ -90,7 +96,6 @@
                 </li>
             </ul>
         </div>
-
     </nav>
 
     <!--Aquí se acaba el navbar-->
@@ -98,6 +103,7 @@
 <div style="background-color: #1A1D39; padding: 20px; margin-top: 40px; width: 100%;" id="perfilEmpleado">
     <h1 style="color: white; font-weight 600; text-align: center;">Empleados</h1>
     @await Html.PartialAsync("~/Views/Shared/Components/EmpeladoCard.cshtml")
+
 </div>
 
 

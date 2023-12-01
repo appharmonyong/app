@@ -12,11 +12,13 @@ namespace Harmony.Presentation.Main.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUserServices _authServices;
 
+        private readonly IWebHostEnvironment _env;
 
-        public HomeController(ILogger<HomeController> logger, IUserServices authServices)
+        public HomeController(ILogger<HomeController> logger, IUserServices authServices, IWebHostEnvironment env)
         {
             _logger = logger;
             _authServices = authServices;
+            _env = env;
         }
 
         public async Task<IActionResult> Index()
@@ -27,8 +29,9 @@ namespace Harmony.Presentation.Main.Controllers
             var carouselItems = new List<CarouselItem>
             {
                 new CarouselItem {ImageUrl = "https://vibes.okdiario.com/wp-content/uploads/2023/07/pension-seguridad-social-amas.jpg", CaptionTitle = "Emplead@s", CaptionBody = "Nuestros empleados verificados", HasButtons = true},
-                new CarouselItem {ImageUrl = "https://whaticket.com/wp-content/uploads/2022/06/clientes-satisfechos-1-1024x577.png", CaptionTitle = "Servicios", CaptionBody = "Ofrecemos los mejores servicios", HasButtons = false},
-                new CarouselItem {ImageUrl = "https://plus.unsplash.com/premium_photo-1664910908445-c902d8b80b8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHB1ZWJsbyUyMGphcG9uZXN8ZW58MHx8MHx8fDE%3D&w=1000&q=80", CaptionTitle = "Harmony", CaptionBody = "Cuenta con nosotros", HasButtons = false}
+
+                new CarouselItem {ImageUrl = "https://i.ibb.co/tBKNfzT/harmony1.jpg", CaptionTitle = "Servicios", CaptionBody = "Ofrecemos los mejores servicios", HasButtons = false},
+                new CarouselItem {ImageUrl = "https://i.ibb.co/D4qC3vQ/harmony1.jpg", CaptionTitle = "Harmony", CaptionBody = "Cuenta con nosotros", HasButtons = false}
             };
 
             //Carga los datos para mandarlo a vista

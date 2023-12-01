@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Harmony</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
     <link rel="stylesheet" href="~/Harmony.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--Fotter css-->
@@ -18,10 +19,54 @@
         .elementos{
             display:inline-block;
             margin:0 10px;
+    <!--Estilo para el navbar-->
+    <style>
+        .my-navbar{
+            background-color:#ede5f3;
+        }
+
+        .my-links .nav-link{
+            color: #6fa0cc;
+            float:right;
+            font-family: "Times New Roman", Times, serif;
+            font-size:18px;
+        }
+
+        .my-img-logo{
+            width:50px;
         }
     </style>
 </head>
 <body>
+    <!--Menú de navegación o Navbar-->
+    <nav class="navbar navbar-expand-sm fixed-top my-navbar">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <img src="https://i.ibb.co/WvbGTh7/harmony-logo-negro.png" alt="Harmony Logo" class="rounded-pill my-img-logo" />
+            </a>
+            <ul class="navbar-nav ms-auto my-links">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Acerca de</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Equipo de trabajo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contacto</a>
+                </li>
+            </ul>
+        </div>
+        
+    </nav>
+
+    <!--Aquí se acaba el navbar-->
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -39,7 +84,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="TestDelete">Test</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesion</a>
                         </li>
                     </ul>
                 </div>
