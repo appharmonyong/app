@@ -5,14 +5,13 @@
 <style>
 
     .carousel-item img {
-        width: 400px; 
-        height: 900px; 
+        width: 400px;
+        height: 900px;
+    }
 
     .my-img-carousel {
-        width: 500px; 
-        height: 900px; 
-         
-
+        width: 500px;
+        height: 900px;
     }
 
     .my-navbar {
@@ -22,15 +21,52 @@
     .my-links .nav-link {
         color: #6fa0cc;
         float: right;
-        font-family: "Times New Roman", Times, serif;
         font-size: 18px;
     }
 
     .my-img-logo {
         width: 50px;
+    }
+
+    .body-index{
+        margin-top: 100px;
+    }
 </style>
 
- <!-- Carousel -->
+<!--Menú de navegación o Navbar-->
+<nav class="navbar navbar-expand-sm fixed-top my-navbar bg-white">
+
+    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+        <img src="https://i.ibb.co/WvbGTh7/harmony-logo-negro.png" alt="Harmony Logo" class="rounded-pill my-img-logo" />
+    </a>
+    <ul class="navbar-nav ms-auto my-links">
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Acerca de</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Servicios</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#perfilEmpleado">Equipo de trabajo</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Home")#footerAncla">Contacto</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesion</a>
+        </li>
+    </ul>
+
+</nav>
+
+
+<div class="body-index">
+
+
+
 <div id="demo1" class="container carousel slide" data-bs-ride="carousel">
 
     <!-- Indicators/dots -->
@@ -49,18 +85,18 @@
                 <img src="@item.ImageUrl" alt="@item.CaptionTitle" class="d-block w-100 my-img-carousel">
                 @if (!string.IsNullOrEmpty(item.CaptionBody))
                 {
-                        <div class="carousel-caption">
-                            <h4>@item.CaptionTitle</h4>
-                            <p>@item.CaptionBody</p>
-                            @if (item.HasButtons)
-                            {
-                                    <button type="button" class="btn btn-primary">Ver Más...</button>   
-                            }
-                        </div>
+                    <div class="carousel-caption">
+                        <h4>@item.CaptionTitle</h4>
+                        <p>@item.CaptionBody</p>
+                        @if (item.HasButtons)
+                        {
+                            <button type="button" class="btn btn-primary">Ver Más...</button>
+                        }
+                    </div>
                 }
-                </div>
+            </div>
         }
-        
+
     </div>
 
     <!-- Left and right controls/icons -->
@@ -72,33 +108,6 @@
     </button>
 </div>
 
-    <!--Menú de navegación o Navbar-->
-    <nav class="navbar navbar-expand-sm fixed-top my-navbar">
-        <div class="container">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                <img src="https://i.ibb.co/WvbGTh7/harmony-logo-negro.png" alt="Harmony Logo" class="rounded-pill my-img-logo" />
-            </a>
-            <ul class="navbar-nav ms-auto my-links">
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Acerca de</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#perfilEmpleado">Equipo de trabajo</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Home")#footerAncla">Contacto</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!--Aquí se acaba el navbar-->
 
 <div style="background-color: #1A1D39; padding: 20px; margin-top: 40px; width: 100%;" id="perfilEmpleado">
     <h1 style="color: white; font-weight 600; text-align: center;">Empleados</h1>
@@ -109,3 +118,4 @@
 
 
 
+</div>
