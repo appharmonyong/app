@@ -17,5 +17,6 @@ namespace Harmony.Common
 
         [Description("Usuario desabilitado o eliminado.")]
         USUARIO_DESHABILITADO_ELIMINADO
+
     }
 }
