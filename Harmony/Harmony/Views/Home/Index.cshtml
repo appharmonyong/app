@@ -1,5 +1,6 @@
 ﻿@model Harmony.Presentation.Main.Models.IndexViewModel
 
+@using Microsoft.AspNetCore.Http
 
 <!--Estilo de las fotos del carousel y el navbar-->
 <style>
@@ -28,7 +29,7 @@
         width: 50px;
     }
 
-    .body-index{
+    .body-index {
         margin-top: 100px;
     }
 </style>
@@ -55,9 +56,31 @@
         <li class="nav-item">
             <a class="nav-link" href="@Url.Action("Index", "Home")#footerAncla">Contacto</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesion</a>
-        </li>
+
+        @if (TempData["IsUserLogIn"] == null)
+        {
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesion</a>
+            </li>
+        }
+
+        @if (TempData["IsUserLogIn"] != null)
+        {
+
+            <li class="nav-item">
+                <a class="nav-link " asp-area="" asp-controller="Account" asp-action="LogOut">Salir</a>
+            </li>
+        }
+
+        @if (TempData["IsUserAdmin"] != null)
+        {
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="CreateUser">Create ADMIN User</a>
+            </li>
+        }
+
     </ul>
 
 </nav>
@@ -67,53 +90,53 @@
 
 
 
-<div id="demo1" class="container carousel slide" data-bs-ride="carousel">
+    <div id="demo1" class="container carousel slide" data-bs-ride="carousel">
 
-    <!-- Indicators/dots -->
-    <div class="carousel-indicators">
-        @for (var i = 0; i < Model.CarouselItems.Count; i++)
-        {
-            <button type="button" data-bs-target="#demo1" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>
-        }
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            @for (var i = 0; i < Model.CarouselItems.Count; i++)
+            {
+                <button type="button" data-bs-target="#demo1" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>
+            }
+        </div>
+
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            @foreach (var item in Model.CarouselItems)
+            {
+                <div class="carousel-item @(item == Model.CarouselItems.First() ? "active" : "")">
+                    <img src="@item.ImageUrl" alt="@item.CaptionTitle" class="d-block w-100 my-img-carousel">
+                    @if (!string.IsNullOrEmpty(item.CaptionBody))
+                    {
+                        <div class="carousel-caption">
+                            <h4>@item.CaptionTitle</h4>
+                            <p>@item.CaptionBody</p>
+                            @if (item.HasButtons)
+                            {
+                                <button type="button" class="btn btn-primary">Ver Más...</button>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+
+        </div>
+
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo1" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo1" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
     </div>
 
-    <!-- The slideshow/carousel -->
-    <div class="carousel-inner">
-        @foreach (var item in Model.CarouselItems)
-        {
-            <div class="carousel-item @(item == Model.CarouselItems.First() ? "active" : "")">
-                <img src="@item.ImageUrl" alt="@item.CaptionTitle" class="d-block w-100 my-img-carousel">
-                @if (!string.IsNullOrEmpty(item.CaptionBody))
-                {
-                    <div class="carousel-caption">
-                        <h4>@item.CaptionTitle</h4>
-                        <p>@item.CaptionBody</p>
-                        @if (item.HasButtons)
-                        {
-                            <button type="button" class="btn btn-primary">Ver Más...</button>
-                        }
-                    </div>
-                }
-            </div>
-        }
+
+    <div style="background-color: #1A1D39; padding: 20px; margin-top: 40px; width: 100%;" id="perfilEmpleado">
+        <h1 style="color: white; font-weight 600; text-align: center;">Empleados</h1>
+        @await Html.PartialAsync("~/Views/Shared/Components/EmpeladoCard.cshtml")
 
     </div>
-
-    <!-- Left and right controls/icons -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#demo1" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#demo1" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
-</div>
-
-
-<div style="background-color: #1A1D39; padding: 20px; margin-top: 40px; width: 100%;" id="perfilEmpleado">
-    <h1 style="color: white; font-weight 600; text-align: center;">Empleados</h1>
-    @await Html.PartialAsync("~/Views/Shared/Components/EmpeladoCard.cshtml")
-
-</div>
 
 
 

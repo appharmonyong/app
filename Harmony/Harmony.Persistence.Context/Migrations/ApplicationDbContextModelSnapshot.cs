@@ -83,6 +83,9 @@ namespace Harmony.Persistence.Context.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Email");

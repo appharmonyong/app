@@ -1,4 +1,5 @@
 ﻿using Harmony.Bussiness.Services.Contracts;
+using Harmony.Bussiness.Services.UserCases;
 using Harmony.Bussiness.ViewModel;
 using Harmony.Presentation.Main.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -10,20 +11,58 @@ namespace Harmony.Presentation.Main.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IUserServices _authServices;
+        private readonly IUserServices _userServices;
 
         private readonly IWebHostEnvironment _env;
 
         public HomeController(ILogger<HomeController> logger, IUserServices authServices, IWebHostEnvironment env)
         {
             _logger = logger;
-            _authServices = authServices;
+            _userServices = authServices;
             _env = env;
         }
 
+        public async Task<bool> IsUserLogin()
+        {
+            try
+            {
+
+                int userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+
+                if (userId != 0)
+                {
+                    var user = await _userServices.GetById(userId);
+                    return user != null;
+                }
+            }
+            catch
+            {
+            }
+
+            return false;
+        }
+
+
+
+        public async Task<bool> IsUserAdmin()
+        {
+            if (await IsUserLogin())
+            {
+
+                int userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+
+                var user = await _userServices.GetById(userId);
+
+                return user.UserType == Common.EUserTypes.Administrator;
+            }
+
+            return false;
+        }
+
+
         public async Task<IActionResult> Index()
         {
-            var users = await _authServices.Get();
+            var users = await _userServices.Get();
 
             //Insertar las fotos que irán en el carousel aquí
             var carouselItems = new List<CarouselItem>
@@ -40,6 +79,26 @@ namespace Harmony.Presentation.Main.Controllers
                 Users = (List<UserVm>)users,
                 CarouselItems = carouselItems
             };
+
+            if (await IsUserLogin())
+            {
+
+            TempData["IsUserLogIn"] = "Auth";
+            } else
+            {
+                TempData["IsUserLogIn"] = null;
+            }
+
+
+            if (await IsUserAdmin())
+            {
+
+                TempData["IsUserAdmin"] = "IsUserAdmin";
+            }
+            else
+            {
+                TempData["IsUserAdmin"] = null;
+            }
 
             return View(viewModel);
         }

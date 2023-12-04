@@ -49,7 +49,7 @@ namespace Harmony.Bussiness.Services.UserCases
                     return await GetById(dbUser.Id)!;
             }
 
-            throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription());
+            throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription(), EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription());
         }
 
         public async Task<UserVm> Register(UserRegisterVm userVm)

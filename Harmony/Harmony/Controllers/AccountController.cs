@@ -16,8 +16,23 @@ namespace Harmony.Presentation.Main.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public async Task<IActionResult> LogOut()
         {
+            if (HttpContext.Session.Get("UserId") != null)
+            {
+                HttpContext.Session.Remove("UserId");
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Login()
+        {
+            if (HttpContext.Session.GetInt32("UserId") != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -33,7 +48,7 @@ namespace Harmony.Presentation.Main.Controllers
                     // Autenticación exitosa, puedes realizar acciones adicionales si es necesario.
 
                     // Por ejemplo, puedes almacenar información del usuario en la sesión.
-                    HttpContext.Session.Set("UserId", BitConverter.GetBytes(user.Id));
+                    HttpContext.Session.SetInt32("UserId", user.Id);
 
                     // Redirigir a la página principal u otra página después del inicio de sesión.
                     return RedirectToAction("Index", "Home");
@@ -41,7 +56,7 @@ namespace Harmony.Presentation.Main.Controllers
                 catch (ArgumentNullException ex)
                 {
                     // Manejar errores, por ejemplo, establecer un mensaje de error en TempData.
-                    TempData["Error"] = ex.Message;
+                    TempData["Error"] = ex.ParamName;
                     return RedirectToAction("Login");
                 }
             }
@@ -70,6 +85,7 @@ namespace Harmony.Presentation.Main.Controllers
                     return View(model);
                 }
 
+                model.userType = Common.EUserTypes.Customer;
                 // Lógica de registro de usuario
                 var newUser = await _userService.Register(model);
 
