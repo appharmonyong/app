@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Harmony.Persistence.Context.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231112011250_userTypeAndUserModelEdit")]
-    partial class userTypeAndUserModelEdit
+    [Migration("20231204215428_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,9 @@ namespace Harmony.Persistence.Context.Migrations
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

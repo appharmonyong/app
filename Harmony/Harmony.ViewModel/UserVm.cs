@@ -1,4 +1,6 @@
-﻿namespace Harmony.Bussiness.ViewModel
+﻿using Harmony.Common;
+
+namespace Harmony.Bussiness.ViewModel
 {
     public class UserVm
     {
@@ -9,5 +11,7 @@
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public DateTime? BirthDay { get; set; }
+        public EUserTypes UserType { get; set; }
+
     }
 }
