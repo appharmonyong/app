@@ -2,6 +2,8 @@ using Harmony.Bussiness.Services;
 using Harmony.Bussiness.ViewModel;
 using Harmony.Persistence.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +35,17 @@ builder.Services.AddServices();
 builder.Services.AddAutoMapper(typeof(MyMappingProfile));
 
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+});
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,13 +59,22 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSession();
+app.UseMvcWithDefaultRoute();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

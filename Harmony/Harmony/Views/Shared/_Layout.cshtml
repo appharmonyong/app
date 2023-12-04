@@ -9,6 +9,16 @@
 
     <link rel="stylesheet" href="~/Harmony.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--Fotter css-->
+    <style>
+        .contenedorFooter{
+            text-align:center;
+            
+        }
+
+        .elementos{
+            display:inline-block;
+            margin:0 10px;
     <!--Estilo para el navbar-->
     <style>
         .my-navbar {
@@ -32,49 +42,26 @@
     </style>
 </head>
 <body>
-    <!--Menú de navegación o Navbar-->
-    <header>
-        <nav class="navbar navbar-expand-sm fixed-top my-navbar">
-            <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <img src="https://i.ibb.co/WvbGTh7/harmony-logo-negro.png" alt="Harmony Logo" class="rounded-pill my-img-logo" />
-                </a>
-                <ul class="navbar-nav ms-auto my-links">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Acerca de</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Equipo de trabajo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesion</a>
-                    </li>
-                </ul>
-            </div>
-
-        </nav>
-    </header>
-
     <!--Aquí se acaba el navbar-->
 
     <div class="container margin-body">
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!--Footer (Información de contacto)-->
+
+    <footer class="border-top footer text-muted" id="footerAncla">
         <div class="container">
-            &copy; 2023 - Harmony - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="contenedorFooter">
+                <h4>CONTÁCTANOS</h4>
+                <p class="elementos">Correo electrónico: info@harmony.com</p>
+                <p class="elementos">Teléfono: +1 (809) 123-4567</p>
+                <p class="elementos">Dirección: Santo Domingo, República Dominicana</p>
+                <p>&copy; 2023 - Harmony - Derechos Reservados</p>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

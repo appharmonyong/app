@@ -17,6 +17,9 @@ namespace Harmony.Bussiness.ViewModel
             #region UserMapping
             CreateMap<UserEntity, UserVm>();
             CreateMap<UserVm, UserEntity>();
+
+            CreateMap<UserEntity, UserRegisterVm>();
+            CreateMap<UserRegisterVm, UserEntity>();
             #endregion
 
             // Add more mappings as needed

@@ -49,7 +49,7 @@ namespace Harmony.Bussiness.Services.UserCases
                     return await GetById(dbUser.Id)!;
             }
 
-            throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription());
+            throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription(), EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription());
         }
 
         public async Task<UserVm> Register(UserRegisterVm userVm)
@@ -179,5 +179,24 @@ namespace Harmony.Bussiness.Services.UserCases
             return _mapper.Map<IEnumerable<UserVm>>(await _context.User.Where(us => us.IsActive && !us.IsDelete).ToListAsync());
         }
 
+
+        //El objetivo de este metodo es hacer una verificación del tipo de cuenta del usuario antes de hacer la eliminación, esto es para
+        //que aunque halla un sólo Delete dentro del controlador para usuarios, pueda realizar opciones distintas para el admin y el
+        //regular.
+        public async Task<bool> GetEType(int id)
+        {
+
+            var fetchId= await _context.User.FindAsync(id);
+            if(fetchId.UserType== EUserTypes.Administrator)
+            {
+                return true; //Cambiar cuando se haga el borrar de admin
+            } else if(fetchId.UserType == EUserTypes.Worker)
+            {
+                await this.Delete(fetchId.Id);
+                fetchId.IsDelete= true;
+                return true;
+            }
+            return false;
+        }
     }
 }
