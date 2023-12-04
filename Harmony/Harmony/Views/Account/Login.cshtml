@@ -5,33 +5,78 @@
     ViewData["Title"] = "Login";
 }
 <div class="row">
+    <header>
+        @*Copiando el estilo del Home*@
+        <style>
+            .my-navbar {
+                background-color: #ede5f3;
+            }
+
+            .my-links .nav-link {
+                color: #6fa0cc;
+                float: right;
+                font-size: 18px;
+            }
+
+            .my-img-logo {
+                width: 50px;
+            }
+
+            .body-index {
+                margin-top: 100px;
+            }
+        </style>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <img src="https://i.ibb.co/WvbGTh7/harmony-logo-negro.png" alt="Harmony Logo" class="rounded-pill my-img-logo" />
+                </a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Regístrate</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
     <div class="col-md-6 offset-3">
-        <p>
-            <h4>Iniciar Sesion</h4>
-        </p>
         @if(TempData["Error"] != null)
         {
             <div class="col-md-12 alert alert-danger">
                 <span><b>Sorry!</b> - @TempData["Error"]</span>
             </div>
         }
+
         <div class="row">
             <div class="col-md-8 offset-2">
+                <img src="~/images/logo_harmony1.jpg" class="rounded mx-auto d-block" />
+                <h6 class="text-center">¿Ya estás registrado?</h6>
+
                 <form asp-action="Login">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
                     <div class="form-group">
-                        <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control">
+                        <input asp-for="Email" class="form-control" placeholder="Correo">
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
+                    
                     <div class="form-group">
-                        <label asp-for="Password" class="control-label"></label>
-                        <input asp-for="Password" class="form-control" />
+                        <input asp-for="Password" class="form-control"  placeholder="Contraseña"/>
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
+                    <br />
+                    
                     <div class="form-group">
-                        <input class="btn btn-outline-success float right" type="submit" value="Login" />
-                        <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">Registrarme</a>
+                        <button id="btnLogin" type="submit">Sign Up</button>
+                        <a asp-controller="" asp-action="" asp-route-id="" class="text-decoration-none text-dark ms-auto">¿Olvidaste tu contraseña?</a>
+                        <button id="btnLogin"><a class="text-decoration-none text-white ms-auto" href="">Iniciar Sesión con Google</a></button>
+                        @* <input class="btn btn-outline-success float right" type="submit" value="Login" />
+                        <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">Registrarme</a> *@
                     </div>
                 </form>
             </div>

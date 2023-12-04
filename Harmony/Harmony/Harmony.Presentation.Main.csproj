@@ -31,4 +31,8 @@
     <ProjectReference Include="..\Harmony.ViewModel\Harmony.Bussiness.ViewModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+  </ItemGroup>
+
 </Project>
