@@ -10,7 +10,7 @@
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                     Eliminar
                 </button>
-                @Html.Partial("_DeleteConfirmationModal");
+                @Html.Partial("_DeleteConfirmationModal", user);
                 <!--<a asp-controller="User" asp-action="TestDelete" asp-route-id="@user.Id" class="btn btn-danger">Eliminar</a> -->
             </div>
         </div>
