@@ -7,6 +7,7 @@ namespace Harmony.Bussiness.Services.Contracts
     {
         Task<UserVm> SignIn(UserLogInVm user);
         Task<IEnumerable<UserVm>> Get();
+        Task<UserVm> GetByName(string name);
         Task<UserVm>? GetById(int id);
         Task<IEnumerable<UserVm>> GetCertainProperties(); //Me permite asegurar que las entidades que no esten activas no se muestren
         
