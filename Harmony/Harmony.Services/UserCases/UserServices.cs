@@ -198,5 +198,12 @@ namespace Harmony.Bussiness.Services.UserCases
             }
             return false;
         }
+
+
+        public async Task<UserVm> GetByName(string name)
+        {
+            var user= await _context.User.FirstOrDefaultAsync(us => us.UserName == name);
+            return _mapper.Map<UserEntity, UserVm>(user);
+        }
     }
 }
