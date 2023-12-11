@@ -1,4 +1,5 @@
 ﻿using Harmony.Bussiness.Services.Contracts;
+using Harmony.Bussiness.Services.UserCases;
 using Harmony.Bussiness.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -78,27 +79,20 @@ namespace Harmony.Presentation.Main.Controllers
         {
             try
             {
-                // Lógica de validación del modelo
                 if (!ModelState.IsValid)
                 {
-                    // Manejar errores de validación y volver a mostrar el formulario
                     return View(model);
                 }
-
                 model.userType = Common.EUserTypes.Customer;
-                // Lógica de registro de usuario
-                var newUser = await _userService.Register(model);
+                await _userService.Register(model);
 
-                // Autenticar al nuevo usuario si es necesario
-
-                // Redirigir a la página principal u otra página después del registro exitoso.
-                return RedirectToAction("Index", "Home");
+                TempData["Success"] = "Usuario creado con exito.";
+                return View();
             }
             catch (ArgumentException ex)
             {
-                // Manejar errores, por ejemplo, establecer un mensaje de error en TempData.
                 TempData["Error"] = ex.Message;
-                return RedirectToAction("Register");
+                return RedirectToAction("CreateAdmin");
             }
         }
     }
