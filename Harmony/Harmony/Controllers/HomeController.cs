@@ -62,6 +62,7 @@ namespace Harmony.Presentation.Main.Controllers
 
         public async Task<IActionResult> Index()
         {
+            
             var users = await _userServices.Get();
 
             //Insertar las fotos que irán en el carousel aquí

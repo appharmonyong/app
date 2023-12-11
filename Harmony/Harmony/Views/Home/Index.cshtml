@@ -2,38 +2,6 @@
 
 @using Microsoft.AspNetCore.Http
 
-<!--Estilo de las fotos del carousel y el navbar-->
-<style>
-
-    .carousel-item img {
-        width: 400px;
-        height: 900px;
-    }
-
-    .my-img-carousel {
-        width: 500px;
-        height: 900px;
-    }
-
-    .my-navbar {
-        background-color: #ede5f3;
-    }
-
-    .my-links .nav-link {
-        color: #6fa0cc;
-        float: right;
-        font-size: 18px;
-    }
-
-    .my-img-logo {
-        width: 50px;
-    }
-
-    .body-index {
-        margin-top: 100px;
-    }
-</style>
-
 <!--Menú de navegación o Navbar-->
 <nav class="navbar navbar-expand-sm fixed-top my-navbar bg-white">
 
@@ -61,15 +29,9 @@
         {
 
             <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesion</a>
-            </li>
-        }
 
-        @if (TempData["IsUserLogIn"] != null)
-        {
+                <a class="nav-link btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesion</a>
 
-            <li class="nav-item">
-                <a class="nav-link " asp-area="" asp-controller="Account" asp-action="LogOut">Salir</a>
             </li>
         }
 
@@ -77,10 +39,20 @@
         {
 
             <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="CreateUser">Create ADMIN User</a>
+
+                <a class="nav-link btn btn-outline-info" asp-area="" asp-controller="Admin" asp-action="Index">Admin panel</a>
+
             </li>
         }
 
+        @if (TempData["IsUserLogIn"] != null)
+        {
+
+            <li class="nav-item">
+                <a class="nav-link btn btn-outline-danger" asp-area="" asp-controller="Account" asp-action="LogOut">Cerrar Sesion</a>
+
+            </li>
+        }
     </ul>
 
 </nav>

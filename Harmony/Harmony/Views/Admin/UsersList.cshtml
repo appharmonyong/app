@@ -1,0 +1,67 @@
+﻿@using Harmony.Bussiness.ViewModel;
+@model List<UserVm>
+
+@{
+    ViewData["Title"] = "Admin Index";
+}
+@Html.Partial("_MenuAdmin")
+<body>
+    <div class="row">
+        <div class="col">
+            <h2 class=" text-black fw-bold text-center">
+                User List
+            </h2>
+        </div>
+
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="col-md-12 alert alert-danger">
+            <span><b>Sorry!</b> - @TempData["Error"] </span>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">FirstName</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">UserType</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (UserVm user in Model)
+                    {
+
+                        <tr>
+                            <th scope="row">@user.Id</th>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.UserName</td>
+                            <td>@user.Email</td>
+                            <td>@user.Phone</td>
+                            <td>@user.UserType.ToString()</td>
+                            <td>
+
+                                <a class="btn btn-primary" asp-action="UpdateUser" asp-route-id="@user.Id">Actualizar</a>
+
+                                <a class="btn btn-danger" asp-action="DeleteAdmin" asp-route-id="@user.Id">Eliminar</a>
+
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>

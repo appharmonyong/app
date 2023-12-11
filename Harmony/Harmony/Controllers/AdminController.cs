@@ -48,10 +48,42 @@ namespace Harmony.Presentation.Main.Controllers
 
             return false;
         }
+        private void clearMessages()
+        {
+
+            TempData["Success"] = null;
+            TempData["Error"] = null;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            clearMessages();
+            if (await IsUserAdmin())
+            {
+
+                int userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+
+                var user = await _userServices.GetById(userId);
+                return View(user);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
 
 
         [HttpGet]
-        public async Task<IActionResult> CreateUser()
+        public async Task<IActionResult> UsersList()
+        {   
+            if (await IsUserAdmin())
+                return View(await _userServices.Get());
+
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateAdmin()
         {
             if (await IsUserAdmin())
                 return View();
@@ -62,24 +94,116 @@ namespace Harmony.Presentation.Main.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> CreateUser(UserRegisterVm model)
+        public async Task<IActionResult> CreateAdmin(UserRegisterVm model)
+        {
+            clearMessages();
+            if (await IsUserAdmin())
+            {
+                try
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return View(model);
+                    }
+                    model.userType = Common.EUserTypes.Administrator;
+                    await _userServices.Register(model);
+
+                    TempData["Success"] = "Usuario creado con exito.";
+                    return View();
+                }
+                catch (ArgumentException ex)
+                {
+                    TempData["Error"] = ex.Message;
+                    return RedirectToAction("CreateAdmin");
+                }
+            }
+
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAdmin(UserVm model, string? actionRedirect = "Index")
+        {
+            clearMessages();
+            if (await IsUserAdmin())
+            {
+                try
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return View(model);
+                    }
+                    await _userServices.Update(model.Id, new UserUpdateVm()
+                    {
+                        Id = model.Id,
+                        BirthDay = model.BirthDay,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Phone = model.Phone
+                    });
+                    TempData["Success"] = "Usuario actualizado con exito.";
+                    return RedirectToAction(actionRedirect, "Admin");
+                }
+                catch (ArgumentException ex)
+                {
+                    TempData["Error"] = ex.Message;
+                    return RedirectToAction(actionRedirect);
+                }
+            }
+
+
+            return RedirectToAction(actionRedirect, "Admin");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteAdmin(int id)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(model);
-                }
-                model.userType = Common.EUserTypes.Administrator;
-                await _userServices.Register(model);
 
-                return RedirectToAction("Index", "Home");
+                if (await IsUserAdmin())
+                {
+                    await _userServices.Delete(id);
+                    TempData["Success"] = "Usuario eliminado con exito.";
+                    Thread.Sleep(3000);
+                }
+
             }
             catch (ArgumentException ex)
             {
                 TempData["Error"] = ex.Message;
-                return RedirectToAction("CreateUser");
             }
+            return RedirectToAction("UsersList", "Admin");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateUser(int id)
+        {
+
+
+            if (await IsUserAdmin())
+            {
+                UserVm user = await _userServices.GetById(id);
+                return View(user);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(UserVm user)
+        {
+
+
+            if (await IsUserAdmin())
+            {
+                await UpdateAdmin(user, "UsersList");
+                return RedirectToAction("UsersList", "Admin");
+            }
+
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

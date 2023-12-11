@@ -98,7 +98,7 @@ namespace Harmony.Bussiness.Services.UserCases
 
     public async Task<IEnumerable<UserVm>> Get()
         {
-            return _mapper.Map<List<UserEntity>, List<UserVm>>(await _context.User.ToListAsync());
+            return _mapper.Map<List<UserEntity>, List<UserVm>>(await _context.User.Where(u => u.IsActive).ToListAsync());
         }
 
         public async Task<UserVm>? GetById(int id)
@@ -164,6 +164,7 @@ namespace Harmony.Bussiness.Services.UserCases
             {
                 var userToBeDeleted = _context.User.Find(id) ?? throw new ArgumentNullException(EMensajesSistema.USUARIO_NO_EXISTENTE.GetDescription());
                 userToBeDeleted.IsActive = false;
+                userToBeDeleted.IsDelete = true;
                 _context.User.Update(userToBeDeleted);
                 return await _context.SaveChangesAsync() > 0;
             }

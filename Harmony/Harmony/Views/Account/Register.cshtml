@@ -86,14 +86,14 @@
 
                     <div class="form-group">
                         @* <label asp-for="Password" class="control-label"></label> *@
-                        <input asp-for="Password" class="form-control" placeholder="Contraseña"/>
+                        <input asp-for="Password" type="password"  class="form-control" placeholder="Contraseña"/>
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     @*Quizás haya que aplicar más lógica para el confirmar contraseña*@
                     <div class="form-group">
                         @* <label asp-for="Password" class="control-label"></label> *@
-                        <input asp-for="Password" class="form-control" placeholder="Confirmar Contraseña" />
+                        <input asp-for="Password" type="password"  class="form-control" placeholder="Confirmar Contraseña" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
