@@ -50,9 +50,17 @@
 
             </li>
         }
+        @if (TempData["IsUserLogIn"] != null && TempData["IsUserAdmin"] == null)
+        {
+            <li class="nav-item">
 
+                <a class="nav-link btn btn-outline-success" asp-area="" asp-controller="Account" asp-action="MyAccount">Mi informacion</a>
+
+            </li>
+        }
         @if (TempData["IsUserLogIn"] != null)
         {
+
 
             <li class="nav-item">
                 <a class="nav-link btn btn-outline-danger" asp-area="" asp-controller="Account" asp-action="LogOut">Cerrar Sesion</a>

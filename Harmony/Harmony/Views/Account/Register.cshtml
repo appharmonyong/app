@@ -4,47 +4,8 @@
 @{
     ViewData["Title"] = "Sign up";
 }
-
+@Html.Partial("_MenuUser")
 <div class="row">
-    <header>
-        @*Copiando el estilo del Home*@
-        <style>
-            .my-navbar {
-                background-color: #ede5f3;
-            }
-
-            .my-links .nav-link {
-                color: #6fa0cc;
-                float: right;
-                font-size: 18px;
-            }
-
-            .my-img-logo {
-                width: 50px;
-            }
-
-            .body-index {
-                margin-top: 100px;
-            }
-        </style>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <img src="https://i.ibb.co/WvbGTh7/harmony-logo-negro.png" alt="Harmony Logo" class="rounded-pill my-img-logo" />
-                </a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
     <div class="col-md-6 offset-3">
 
         @if (TempData["Error"] != null)
@@ -78,35 +39,35 @@
                     </div>
 
                     <div class="form-group">
-                    @* <label asp-for="Email" class="control-label"></label> *@
-                    <input asp-for="Email" class="form-control" placeholder="Correo"/>
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                        @* <label asp-for="Email" class="control-label"></label> *@
+                        <input asp-for="Email" class="form-control" placeholder="Correo" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
 
                     <div class="form-group">
                         @* <label asp-for="Password" class="control-label"></label> *@
-                        <input asp-for="Password" type="password"  class="form-control" placeholder="Contraseña"/>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Contraseña" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     @*Quizás haya que aplicar más lógica para el confirmar contraseña*@
                     <div class="form-group">
                         @* <label asp-for="Password" class="control-label"></label> *@
-                        <input asp-for="Password" type="password"  class="form-control" placeholder="Confirmar Contraseña" />
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Confirmar Contraseña" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     @* <div class="form-group">
-                        <label asp-for=" Phone" class="control-label"></label>
-                        <input asp-for=" Phone" class="form-control" />
-                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    <label asp-for=" Phone" class="control-label"></label>
+                    <input asp-for=" Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for=" BirthDay" class="control-label"></label>
-                        <input asp-for=" BirthDay" class="form-control" />
-                        <span asp-validation-for="BirthDay" class="text-danger"></span>
+                    <label asp-for=" BirthDay" class="control-label"></label>
+                    <input asp-for=" BirthDay" class="form-control" />
+                    <span asp-validation-for="BirthDay" class="text-danger"></span>
                     </div> *@
 
                     <div class="form-group">
