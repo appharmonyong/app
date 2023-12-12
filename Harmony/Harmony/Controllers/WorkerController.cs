@@ -123,12 +123,12 @@ namespace Harmony.Presentation.Main.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> LookupWorker(string name)
-        {
-            await _userServices.GetByName(name);
+        //public async Task<IActionResult> LookupWorker(string name)
+        //{
+        //    await _userServices.(name);
 
-            return View(name);
-        }
+        //    return View(name);
+        //}
         
     }
 }
