@@ -4,47 +4,10 @@
 @{
     ViewData["Title"] = "Sign up";
 }
+@Html.Partial("~/Views/Account/_MenuUser.cshtml")
 
 <div class="row">
-    <header>
-        @*Copiando el estilo del Home*@
-        <style>
-            .my-navbar {
-                background-color: #ede5f3;
-            }
 
-            .my-links .nav-link {
-                color: #6fa0cc;
-                float: right;
-                font-size: 18px;
-            }
-
-            .my-img-logo {
-                width: 50px;
-            }
-
-            .body-index {
-                margin-top: 100px;
-            }
-        </style>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <img src="https://i.ibb.co/WvbGTh7/harmony-logo-negro.png" alt="Harmony Logo" class="rounded-pill my-img-logo" />
-                </a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
     <div class="col-md-6 offset-3">
 
         @if (TempData["Error"] != null)
@@ -62,7 +25,7 @@
                 <br />
 
 
-                <form asp-action="Register">
+                <form asp-action="CreateWorker">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
@@ -86,14 +49,14 @@
 
                     <div class="form-group">
                         @* <label asp-for="Password" class="control-label"></label> *@
-                        <input asp-for="Password" type="password"  class="form-control" type="password" placeholder="Contraseña" />
+                        <input asp-for="Password" type="password" class="form-control" type="password" placeholder="Contraseña" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     @*Quizás haya que aplicar más lógica para el confirmar contraseña*@
                     <div class="form-group">
                         @* <label asp-for="Password" class="control-label"></label> *@
-                        <input asp-for="Password" type="password"  class="form-control" placeholder="Confirmar Contraseña" />
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Confirmar Contraseña" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
@@ -113,10 +76,9 @@
                         <button style="background-color: #1a1d39; border-radius: 4px;">
                             <a class="text-decoration-none text-white ms-auto" asp-controller="" asp-action="">¿Ya tienes una cuenta?</a>
                         </button>
-                        <button style="background-color: #1a1d39; border-radius: 4px;">
-                            <a class="text-decoration-none text-white ms-auto" asp-controller="" asp-action="">Crear cuenta</a>
+                        <button class="text-decoration-none text-white ms-auto" type="submit" style="background-color: #1a1d39; border-radius: 4px;">
+                            Crear cuenta
                         </button>
-                    </div>
                 </form>
             </div>
         </div>

@@ -76,6 +76,11 @@
                     <button class="text-decoration-none text-white ms-auto" type="submit" style="background-color: #1a1d39; border-radius: 4px;">
                         Actualizar Datos
                     </button>
+
+
+                    <button asp-controller="Worker" asp-action="DeleteWorker" asp-route-id="@Model.Id" class="btn text-decoration-none text-white btn-danger ms-auto" type="submit" style="background-color: #1a1d39; border-radius: 4px;">
+                        Eliminar
+                    </button>
                 </div>
             </form>
         </div>

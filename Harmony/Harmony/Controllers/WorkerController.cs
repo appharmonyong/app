@@ -49,14 +49,36 @@ namespace Harmony.Presentation.Main.Controllers
             return false;
         }
 
+        private async Task UserLoginOrAdmin()
+        {
+            if (await IsUserLogin())
+            {
+
+                TempData["IsUserLogIn"] = "Auth";
+            }
+            else
+            {
+                TempData["IsUserLogIn"] = null;
+            }
+
+
+            if (await IsUserAdmin())
+            {
+
+                TempData["IsUserAdmin"] = "IsUserAdmin";
+            }
+            else
+            {
+                TempData["IsUserAdmin"] = null;
+            }
+
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> CreateWorker()
         {
-            if (await IsUserAdmin())
-                return View();
-
-            return RedirectToAction("Index", "Home");
-
+            return View();
         }
 
         [HttpPost]
@@ -64,6 +86,7 @@ namespace Harmony.Presentation.Main.Controllers
         {
             try
             {
+                await UserLoginOrAdmin();
                 if (!ModelState.IsValid)
                 {
                     return View(model);
@@ -83,13 +106,11 @@ namespace Harmony.Presentation.Main.Controllers
         [HttpGet]
         public async Task<IActionResult> EditWorker(int id)
         {
-            if (await IsUserAdmin())
-            {
-                var fetchWorkerUpdate = await _userServices.GetById(id);
-                return View(fetchWorkerUpdate);
-            }
-                
-            return RedirectToAction("Index", "Home");
+            await UserLoginOrAdmin();
+            var fetchWorkerUpdate = await _userServices.GetById(id);
+            return View(fetchWorkerUpdate);
+
+
         }
 
         [HttpPost]
@@ -97,6 +118,7 @@ namespace Harmony.Presentation.Main.Controllers
         {
             try
             {
+                await UserLoginOrAdmin();
                 if (!ModelState.IsValid)
                 {
                     return View(model);
@@ -104,7 +126,8 @@ namespace Harmony.Presentation.Main.Controllers
                 await _userServices.Update(id, model);
 
                 return RedirectToAction("Index", "Home");
-            } catch (ArgumentException ex)
+            }
+            catch (ArgumentException ex)
             {
                 TempData["Error"] = ex.Message;
                 return RedirectToAction("CreateWorker");
@@ -115,11 +138,13 @@ namespace Harmony.Presentation.Main.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteWorker(int id)
         {
-            if (await IsUserAdmin())
-            {
-                await _userServices.Delete(id);
-            }
+            await UserLoginOrAdmin();
+            await _userServices.Delete(id);
 
+            if (HttpContext.Session.Get("UserId") != null)
+            {
+                HttpContext.Session.Remove("UserId");
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -129,6 +154,6 @@ namespace Harmony.Presentation.Main.Controllers
 
         //    return View(name);
         //}
-        
+
     }
 }
