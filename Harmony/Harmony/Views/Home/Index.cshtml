@@ -22,6 +22,12 @@
             <a class="nav-link" href="#perfilEmpleado">Equipo de trabajo</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#Empleados">Empleados</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#Testimonios">Testimonios </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="@Url.Action("Index", "Home")#footerAncla">Contacto</a>
         </li>
 
@@ -104,73 +110,100 @@
     </div>
 
 
-    <div style="background-color: #1A1D39; padding: 20px; margin-top: 40px; width: 100%;" id="perfilEmpleado">
-        <h1 style="color: white; font-weight 600; text-align: center;">Empleados</h1>
-        @await Html.PartialAsync("~/Views/Shared/Components/EmpeladoCard.cshtml")
+    <div class="my-4" id="Empleados">
+
+        @await Html.PartialAsync("~/Views/Shared/Components/EmpeladoCard.cshtml", Model.Employees)
 
     </div>
 
-    
-   <div class="container mt-5">
-    <h2 class="text-center mb-4">Testimonios de clientes</h2>
 
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://www.clinicalascondes.cl/getattachment/b666ad10-c057-480b-805f-1f937afdb279/" height="200px" alt="Cliente 1" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre del cliente 1</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                   <div class="rating">
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #ffff56;"></i>
-                    </div>
-                    </p>
-                </div>
-            </div>
+    <div class="container mt-5" id="Testimonios">
+
+
+        <div class="card w-100 shadow p-2 mb-2 bg-white rounded">
+            <h2 class="fw-bold text-center font-monospace">Testimonios de clientes</h2>
         </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://www.redaccionmedica.com/images/destacados/las-personas-con-un-riesgo-genetico-bajo-de-tdah-son-mas-afortunadas--2868.jpg" height="200px" alt="Cliente 2" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre del cliente 2</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  <div class="rating">
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #ffff56;"></i>
-                        <i class="fa fa-star" style="color: #ffff56;"></i>
+        <div class="row justify-content-between">
+            <div class="col-md-3 mb-4">
+                <div class="shadow card">
+                    <img src="https://www.clinicalascondes.cl/getattachment/b666ad10-c057-480b-805f-1f937afdb279/" height="200px" alt="Cliente 1" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Herman McHome</h5>
+                        <p class="card-text">
+                            ¡Increíble experiencia! Gracias a esta plataforma, conseguí una ayuda confiable para las tareas del hogar. La interfaz amigable hizo que todo fuera sencillo y eficiente. ¡Altamente recomendado!
+                            <div class="rating">
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #ffff56;"></i>
+                            </div>
+                        </p>
                     </div>
-                    </p>
-                       
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://img.freepik.com/foto-gratis/retrato-hermoso-mujer-joven-posicion-pared-gris_231208-10760.jpg" height="200px" alt="Cliente 3" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre del cliente 3</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                   <div class="rating">
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
-                        <i class="fa fa-star" style="color: #cbcf00;"></i>
+            <div class="col-md-3 mb-4">
+                <div class="shadow  card">
+                    <img src="https://www.redaccionmedica.com/images/destacados/las-personas-con-un-riesgo-genetico-bajo-de-tdah-son-mas-afortunadas--2868.jpg" height="200px" alt="Cliente 2" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Mr Balcan Shah</h5>
+                        <p class="card-text">
+                            Encontré la solución perfecta para el cuidado de mis padres mayores. La plataforma facilitó la conexión con cuidadores de confianza y brindó tranquilidad a toda la familia.
+                            <div class="rating">
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #ffff56;"></i>
+                                <i class="fa fa-star" style="color: #ffff56;"></i>
+                            </div>
+                        </p>
+
                     </div>
-                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="shadow card">
+                    <img src="https://img.freepik.com/foto-gratis/retrato-hermoso-mujer-joven-posicion-pared-gris_231208-10760.jpg" height="200px" alt="Cliente 3" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Cintya Shakkur</h5>
+                        <p class="card-text">
+                            No puedo imaginar mi vida sin esta plataforma. La búsqueda de servicios domésticos se volvió tan fácil. ¡Conecté con un cuidador increíble en minutos! Definitivamente, la mejor opción.
+                            <div class="rating">
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 mb-4">
+                <div class="shadow card">
+                    <img src="https://img.freepik.com/foto-gratis/vista-frontal-hombre-anillo-nariz_23-2149441219.jpg?w=1380&t=st=1702353789~exp=1702354389~hmac=287d2a7a88bdfc5836de450811a55a913e563665749986d2f4e2cf27a356839a" height="200px" alt="Cliente 3" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Notorius Big</h5>
+                        <p class="card-text">
+                            ¡Qué alivio haber encontrado esta plataforma! La calidad del servicio y la rapidez para encontrar ayuda en el hogar son inigualables. Estoy muy satisfecha con la atención y profesionalismo ofrecidos.
+                            <div class="rating">
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                                <i class="fa fa-star" style="color: #cbcf00;"></i>
+                            </div>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 </div>
