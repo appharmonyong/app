@@ -10,5 +10,6 @@ namespace Harmony.Presentation.Main.Models
         public List<UserVm> Users { get; set; }
         public List<CarouselItem> CarouselItems { get; set; }
         public List<Employee> Employees { get; set; }
+        public List<Employee> EEmployees { get; set; }
     }
 }

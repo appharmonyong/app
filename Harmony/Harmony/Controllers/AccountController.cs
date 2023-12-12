@@ -117,7 +117,8 @@ namespace Harmony.Presentation.Main.Controllers
                 await _userServices.Register(model);
 
                 TempData["Success"] = "Usuario creado con exito.";
-                return View();
+                return RedirectToAction("LogIn", "Account");
+
             }
             catch (ArgumentException ex)
             {

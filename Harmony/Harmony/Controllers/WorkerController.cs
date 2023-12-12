@@ -94,7 +94,7 @@ namespace Harmony.Presentation.Main.Controllers
                 model.userType = Common.EUserTypes.Worker;
                 await _userServices.Register(model);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LogIn", "Account");
             }
             catch (ArgumentException ex)
             {

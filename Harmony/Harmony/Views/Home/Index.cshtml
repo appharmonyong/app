@@ -13,17 +13,18 @@
             <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Acerca de</a>
+            <a class="nav-link" href="#acercaDe">Acerca de</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Servicios</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#perfilEmpleado">Equipo de trabajo</a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="#Empleados">Empleados</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#EEmpleados">Equipo de trabajo</a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link" href="#Testimonios">Testimonios </a>
         </li>
@@ -33,7 +34,7 @@
 
         @if (TempData["IsUserLogIn"] == null)
         {
-           
+
 
             <li class="nav-item">
 
@@ -118,10 +119,63 @@
         </button>
     </div>
 
+    <div class="card w-100 shadow p-2 mb-2 bg-white rounded my-4" id="acercaDe">
+        <h2 class="fw-bold text-center font-monospace">Acerca de HARMONY</h2>
+    </div>
+
+
+    <div class="row text-center my-4">
+        <div class="col-4">
+            <div class="card w-100 shadow p-3 mb-4 bg-white rounded">
+                <div class="card-body">
+                    <h4 class="fw-bold">
+                        Misión de Harmony
+                    </h4>
+                    <p>
+                        En Harmony, nos dedicamos a proporcionar servicios domésticos excepcionales con un enfoque centrado en el bienestar de nuestros clientes. Nuestra misión es crear un entorno armonioso en cada hogar, ofreciendo soluciones de limpieza y cuidado personal de alta calidad.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card w-100 shadow p-3 mb-4 bg-white rounded">
+                <div class="card-body">
+                    <h4 class="fw-bold">
+
+                        Visión de Harmony
+                    </h4>
+                    <p>
+                        En Harmony, aspiramos a ser reconocidos como el referente líder en servicios domésticos, destacando por nuestra dedicación a la excelencia, integridad y cuidado personalizado.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card w-100 shadow p-3 mb-4 bg-white rounded">
+                <div class="card-body">
+                    <h4 class="fw-bold">
+
+                        Valores de Harmony
+                    </h4>
+                    <p>
+                        Integridad: Actuar con honestidad y transparencia en todas las interaccionesCompromiso con la Calidad: Buscar la excelencia en todos los aspectos de nuestros serviciosRespeto: Tratar a nuestros clientes, empleados y colaboradores con dignidad y respeto
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="my-4" id="Empleados">
 
         @await Html.PartialAsync("~/Views/Shared/Components/EmpeladoCard.cshtml", Model.Employees)
+
+    </div>
+
+    <div class="my-4" id="EEmpleados">
+
+        @await Html.PartialAsync("~/Views/Shared/Components/EquipoTrabajo.cshtml", Model.EEmployees)
 
     </div>
 

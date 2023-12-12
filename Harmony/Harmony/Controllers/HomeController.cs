@@ -72,10 +72,11 @@ namespace Harmony.Presentation.Main.Controllers
             //Insertar las fotos que irán en el carousel aquí
             var carouselItems = new List<CarouselItem>
             {
-                new CarouselItem {ImageUrl = "https://vibes.okdiario.com/wp-content/uploads/2023/07/pension-seguridad-social-amas.jpg", CaptionTitle = "Emplead@s", CaptionBody = "Nuestros empleados verificados", HasButtons = true},
+                new CarouselItem {ImageUrl = "https://i.ibb.co/D4qC3vQ/harmony1.jpg", CaptionTitle = "Emplead@s", CaptionBody = "Nuestros empleados verificados", HasButtons = true},
 
                 new CarouselItem {ImageUrl = "https://i.ibb.co/tBKNfzT/harmony1.jpg", CaptionTitle = "Servicios", CaptionBody = "Ofrecemos los mejores servicios", HasButtons = false},
-                new CarouselItem {ImageUrl = "https://i.ibb.co/D4qC3vQ/harmony1.jpg", CaptionTitle = "Harmony", CaptionBody = "Cuenta con nosotros", HasButtons = false}
+                new CarouselItem {ImageUrl = "https://i.ibb.co/D4qC3vQ/harmony1.jpg", CaptionTitle = "Harmony", CaptionBody = "Cuenta con nosotros", HasButtons = false},
+                new CarouselItem {ImageUrl = "https://i.ibb.co/tBKNfzT/harmony1.jpg", CaptionTitle = "Servicios", CaptionBody = "Ofrecemos los mejores servicios", HasButtons = false},
             };
 
             //Carga los datos para mandarlo a vista
@@ -83,7 +84,8 @@ namespace Harmony.Presentation.Main.Controllers
             {
                 Users = (List<UserVm>)users,
                 CarouselItems = carouselItems,
-                Employees = await GetEmployees()
+                Employees = await GetEmployees(),
+                EEmployees = await GetEmployees(),
             };
 
             if (await IsUserLogin())
@@ -191,7 +193,7 @@ namespace Harmony.Presentation.Main.Controllers
 
             List<Employee> employees = new List<Employee>();
 
-            while (employees.Count < 9)
+            while (employees.Count < 6)
             {
 
                 employees.Add(await GetEmployee());
