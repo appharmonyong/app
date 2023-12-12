@@ -1,0 +1,52 @@
+﻿
+<style>
+    .my-navbar {
+        background-color: #ede5f3;
+    }
+
+    .my-links .nav-link {
+        color: #6fa0cc;
+        float: right;
+        font-size: 18px;
+    }
+
+    .my-img-logo {
+        width: 50px;
+    }
+
+    .body-index {
+        margin-top: 100px;
+    }
+</style>
+
+<div class="row">
+    <header>
+ 
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index" data-toggle="tooltip" data-placement="button" title="Pagina inicio">
+                    <img src="https://i.ibb.co/WvbGTh7/harmony-logo-negro.png" alt="Harmony Logo" class="rounded-pill my-img-logo" />
+                </a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">Inicio</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="UsersList">Lista de Usuarios</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="CreateAdmin">Create Admin User</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+</div>

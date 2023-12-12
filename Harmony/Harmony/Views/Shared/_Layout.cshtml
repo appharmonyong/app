@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Harmony</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/Harmony.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--Fotter css-->
+    <style>
+        .contenedorFooter {
+            text-align: center;
+        }
+
+        .elementos {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .my-navbar {
+            background-color: #ede5f3;
+        }
+
+        .my-links .nav-link {
+            color: #6fa0cc;
+            float: right;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 18px;
+        }
+
+        .my-img-logo {
+            width: 50px;
+        }
+
+        .carousel-item img {
+            width: 400px;
+            height: 900px;
+        }
+
+        .my-img-carousel {
+            width: 500px;
+            height: 900px;
+        }
+
+        .my-navbar {
+            background-color: #ede5f3;
+        }
+
+        .my-links .nav-link {
+            color: #6fa0cc;
+            float: right;
+            font-size: 18px;
+        }
+
+        .my-img-logo {
+            width: 50px;
+        }
+
+        .body-index {
+            margin-top: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <!--Aquí se acaba el navbar-->
+
+    <div class="container margin-body">
+
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!--Footer (Información de contacto)-->
+
+    <footer class="border-top footer text-muted pt-2" id="footerAncla">
+        <div class="container">
+            <div class="contenedorFooter">
+                <h4>CONTÁCTANOS</h4>
+                <p class="elementos">Correo electrónico: info@harmony.com</p>
+                <p class="elementos">Teléfono: +1 (809) 123-4567</p>
+                <p class="elementos">Dirección: Santo Domingo, República Dominicana</p>
+                <p>&copy; 2023 - Harmony - Derechos Reservados</p>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

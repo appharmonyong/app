@@ -1,0 +1,50 @@
+﻿@using Harmony.Bussiness.ViewModel;
+@model UserLogInVm
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@Html.Partial("_MenuUser")
+
+<div class="row">
+
+    <div class="col-md-6 offset-3">
+        @if(TempData["Error"] != null)
+        {
+            <div class="col-md-12 alert alert-danger">
+                <span><b>Sorry!</b> - @TempData["Error"]</span>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <img src="~/images/logo_harmony1.jpg" class="rounded mx-auto d-block" />
+                <h6 class="text-center">¿Ya estás registrado?</h6>
+
+                <form asp-action="Login">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="form-group">
+                        <input asp-for="Email" class="form-control" placeholder="Correo">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input asp-for="Password" type="password"  class="form-control"  placeholder="Contraseña"/>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <br />
+                    
+                    <div class="form-group">
+                        <button id="btnLogin" type="submit">Sign Up</button>
+                        <a asp-controller="" asp-action="" asp-route-id="" class="text-decoration-none text-dark ms-auto">¿Olvidaste tu contraseña?</a>
+                        <button id="btnLogin"><a class="text-decoration-none text-white ms-auto" href="">Iniciar Sesión con Google</a></button>
+                        @* <input class="btn btn-outline-success float right" type="submit" value="Login" />
+                        <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">Registrarme</a> *@
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

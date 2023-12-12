@@ -1,0 +1,84 @@
+﻿@using Harmony.Bussiness.ViewModel;
+@model UserVm
+
+@{
+    ViewData["Title"] = "Admin Index";
+}
+@Html.Partial("_MenuAdmin")
+<body>
+    <div class="row">
+        <div class="col">
+            <h3 class=" text-black fw-bold text-center">
+                Update User
+            </h3>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-2">
+
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="col-md-12 alert alert-danger">
+                    <span><b>Sorry!</b> - @TempData["Error"] </span>
+                </div>
+            }
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="col-md-12 alert alert-success">
+                    <span>@TempData["Success"] </span>
+                </div>
+            }
+
+            <form asp-action="UpdateUser" method="post">
+
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label  text-black fw-bold"></label>
+                    <input asp-for="Id" class="form-control" placeholder="Id" readonly />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for=" FirstName" class="control-label  text-black fw-bold"></label>
+                    <input asp-for=" FirstName" class="form-control" placeholder="Nombre" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label  text-black fw-bold"></label>
+                    <input asp-for="LastName" class="form-control" placeholder="Apellido" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label  text-black fw-bold"></label>
+                    <input asp-for="Email" name="Email" value="@Model.Email" class="form-control" placeholder="Correo" readonly />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label  text-black fw-bold"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BirthDay" class="control-label  text-black fw-bold"></label>
+                    <input asp-for="BirthDay" class="form-control" />
+                    <span asp-validation-for="BirthDay" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+
+                    <button class="text-decoration-none text-white ms-auto" type="submit" style="background-color: #1a1d39; border-radius: 4px;">
+                        Actualizar Datos
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
